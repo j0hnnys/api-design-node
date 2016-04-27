@@ -29,6 +29,18 @@ app.post('/lions', function(req, res) {
   res.json(lion);
 });
 
+app.delete('/lions/:id', function(req, res) {
+  var index = _.findIndex(lions, { id: req.params.id });
+  
+  if ( !lions[index] ) {
+    res.send();
+  } else {
+    var index2 = _.pullAt(lions, index)[0];
+    res.send(deletedLion);
+  }
+  
+});
+
 
 app.put('/lions/:id', function(req, res) {
   var update = req.body;
@@ -44,6 +56,8 @@ app.put('/lions/:id', function(req, res) {
     res.json(updatedLion);
   }
 });
+
+
 
 app.set('port', (process.env.PORT || 8080));
 
